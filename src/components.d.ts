@@ -5,57 +5,57 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { Images } from "./components/carousel-component/carousel-component";
 export namespace Components {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+    interface CarouselComponent {
+        "delay": number;
+        "images": Array<Images>;
+    }
+    interface ImageComponent {
+        "alt": string;
+        "isActive": boolean;
+        "src": string;
     }
 }
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLCarouselComponentElement extends Components.CarouselComponent, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLCarouselComponentElement: {
+        prototype: HTMLCarouselComponentElement;
+        new (): HTMLCarouselComponentElement;
+    };
+    interface HTMLImageComponentElement extends Components.ImageComponent, HTMLStencilElement {
+    }
+    var HTMLImageComponentElement: {
+        prototype: HTMLImageComponentElement;
+        new (): HTMLImageComponentElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "carousel-component": HTMLCarouselComponentElement;
+        "image-component": HTMLImageComponentElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+    interface CarouselComponent {
+        "delay"?: number;
+        "images"?: Array<Images>;
+    }
+    interface ImageComponent {
+        "alt"?: string;
+        "isActive"?: boolean;
+        "src"?: string;
     }
     interface IntrinsicElements {
-        "my-component": MyComponent;
+        "carousel-component": CarouselComponent;
+        "image-component": ImageComponent;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "carousel-component": LocalJSX.CarouselComponent & JSXBase.HTMLAttributes<HTMLCarouselComponentElement>;
+            "image-component": LocalJSX.ImageComponent & JSXBase.HTMLAttributes<HTMLImageComponentElement>;
         }
     }
 }
