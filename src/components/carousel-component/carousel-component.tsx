@@ -1,4 +1,5 @@
 import { Component, h, Listen, Prop, State } from '@stencil/core';
+import { NavigationDirection } from './navigation-component/constants';
 
 export interface Images {
   src: string;
@@ -66,6 +67,30 @@ export class CarouselComponent {
     }
   }
 
+  setNavigation(direction: NavigationDirection) {
+    clearInterval(this.intervalRef);
+    this.intervalEnabled = false;
+
+    if (direction === NavigationDirection.Left) {
+      this.activeSlideIndex = this.activeSlideIndex === 0 ? this.maxNoOfSlides - 1 : this.activeSlideIndex - 1;
+    } else {
+      this.activeSlideIndex = this.activeSlideIndex === this.maxNoOfSlides - 1 ? 0 : this.activeSlideIndex + 1;
+    }
+
+    this.mapImagesConfig();
+  }
+
+  @Listen('clickNextOrPrevSlide')
+  clickNextOrPrevSlide(event: CustomEvent<NavigationDirection>) {
+    if (event.detail === NavigationDirection.Left) {
+      this.setNavigation(NavigationDirection.Left);
+
+      return;
+    }
+
+    this.setNavigation(NavigationDirection.Right);
+  }
+
   render() {
     return (
       <section onMouseLeave={() => this.restartCarouselIteration.call(this)}>
@@ -74,9 +99,11 @@ export class CarouselComponent {
         ))}
         <div class="indicators">
           {this.imagesConfig.map((image, index) => (
-            <indicator-component isActive={image.isActive} slideIndex={index}></indicator-component>
+            <indicator-component isActive={image.isActive} slideIndex={index} />
           ))}
         </div>
+        <navigation-component text="<" />
+        <navigation-component text=">" navigationDirection={NavigationDirection.Right} />
       </section>
     );
   }
