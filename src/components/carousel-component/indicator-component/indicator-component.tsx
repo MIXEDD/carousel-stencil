@@ -15,6 +15,13 @@ export class IndicatorComponent {
   onClickEvent: EventEmitter<number>;
 
   render() {
-    return <button class={this.isActive && 'active'} onClick={() => this.onClickEvent.emit(this.slideIndex)}></button>;
+    return (
+      <button
+        class={this.isActive && 'active'}
+        onClick={() => this.onClickEvent.emit(this.slideIndex)}
+        aria-label={`Slide indicator ${this.slideIndex + 1}`}
+        aria-pressed={this.isActive && 'true'}
+      ></button>
+    );
   }
 }
