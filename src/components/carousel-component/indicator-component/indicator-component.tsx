@@ -5,12 +5,12 @@ import { Component, EventEmitter, h, Prop, Event } from '@stencil/core';
   styleUrl: 'indicator-component.scss',
   shadow: true,
 })
-export class CarouselComponent {
+export class IndicatorComponent {
   @Prop() isActive: boolean;
   @Prop() slideIndex: number;
 
   @Event({
-    eventName: 'onChangeSlide',
+    eventName: 'changeSlide',
   })
   onClickEvent: EventEmitter<number>;
 
