@@ -1,9 +1,13 @@
-.container {
-  margin: 0 200px;
-}
-
 section {
   position: relative;
   width: 100%;
   padding-top: 45%;
+}
+
+.indicators {
+  position: absolute;
+  bottom: 5%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

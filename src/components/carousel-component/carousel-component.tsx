@@ -1,4 +1,4 @@
-import { Component, h, Prop, State } from '@stencil/core';
+import { Component, h, Listen, Prop, State } from '@stencil/core';
 
 export interface Images {
   src: string;
@@ -22,6 +22,7 @@ export class CarouselComponent {
   @State() activeSlideIndex: number = 0;
   @State() maxNoOfSlides: number;
   @State() intervalRef: ReturnType<typeof setInterval>;
+  @State() intervalEnabled: boolean = false;
 
   mapImagesConfig() {
     this.imagesConfig = this.images.map((image, index) => ({
@@ -30,8 +31,12 @@ export class CarouselComponent {
     }));
   }
 
-  enableSlideshow() {
-    this.mapImagesConfig();
+  enableSlideshow(initialLoad = true) {
+    this.intervalEnabled = true;
+
+    if (initialLoad) {
+      this.mapImagesConfig();
+    }
 
     this.intervalRef = setInterval(() => {
       this.activeSlideIndex = this.activeSlideIndex < this.maxNoOfSlides - 1 ? this.activeSlideIndex + 1 : 0;
@@ -46,15 +51,33 @@ export class CarouselComponent {
     this.enableSlideshow();
   }
 
+  @Listen('onChangeSlide')
+  changeSlide(event: CustomEvent<number>) {
+    clearInterval(this.intervalRef);
+    this.intervalEnabled = false;
+
+    this.activeSlideIndex = event.detail;
+    this.mapImagesConfig();
+  }
+
+  restartCarouselIteration() {
+    if (!this.intervalEnabled) {
+      this.enableSlideshow(false);
+    }
+  }
+
   render() {
     return (
-      <div class="container">
-        <section>
-          {this.imagesConfig.map(image => (
-            <image-component {...image} />
+      <section onMouseLeave={() => this.restartCarouselIteration.call(this)}>
+        {this.imagesConfig.map(image => (
+          <image-component {...image} />
+        ))}
+        <div class="indicators">
+          {this.imagesConfig.map((image, index) => (
+            <indicator-component isActive={image.isActive} slideIndex={index}></indicator-component>
           ))}
-        </section>
-      </div>
+        </div>
+      </section>
     );
   }
 }

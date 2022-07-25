@@ -1,0 +1,15 @@
+button {
+  cursor: pointer;
+  width: 30px;
+  height: 5px;
+  background-color: #FFF;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+  margin: 0 10px;
+  border: none;
+
+  &.active {
+    opacity: 1;
+  }
+}
+
