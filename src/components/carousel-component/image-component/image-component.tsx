@@ -5,7 +5,7 @@ import { Component, h, Prop } from '@stencil/core';
   styleUrl: 'image-component.scss',
   shadow: true,
 })
-export class CarouselComponent {
+export class ImageComponent {
   @Prop() src: string;
   @Prop() alt: string;
   @Prop() isActive: boolean;

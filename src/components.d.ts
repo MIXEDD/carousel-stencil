@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Images } from "./components/carousel-component/carousel-component";
+import { NavigationDirection } from "./components/carousel-component/navigation-component/constants";
 export namespace Components {
     interface CarouselComponent {
         "delay": number;
@@ -20,10 +21,18 @@ export namespace Components {
         "isActive": boolean;
         "slideIndex": number;
     }
+    interface NavigationComponent {
+        "navigationDirection": NavigationDirection;
+        "text": string;
+    }
 }
 export interface IndicatorComponentCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLIndicatorComponentElement;
+}
+export interface NavigationComponentCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLNavigationComponentElement;
 }
 declare global {
     interface HTMLCarouselComponentElement extends Components.CarouselComponent, HTMLStencilElement {
@@ -44,10 +53,17 @@ declare global {
         prototype: HTMLIndicatorComponentElement;
         new (): HTMLIndicatorComponentElement;
     };
+    interface HTMLNavigationComponentElement extends Components.NavigationComponent, HTMLStencilElement {
+    }
+    var HTMLNavigationComponentElement: {
+        prototype: HTMLNavigationComponentElement;
+        new (): HTMLNavigationComponentElement;
+    };
     interface HTMLElementTagNameMap {
         "carousel-component": HTMLCarouselComponentElement;
         "image-component": HTMLImageComponentElement;
         "indicator-component": HTMLIndicatorComponentElement;
+        "navigation-component": HTMLNavigationComponentElement;
     }
 }
 declare namespace LocalJSX {
@@ -65,10 +81,16 @@ declare namespace LocalJSX {
         "onChangeSlide"?: (event: IndicatorComponentCustomEvent<number>) => void;
         "slideIndex"?: number;
     }
+    interface NavigationComponent {
+        "navigationDirection"?: NavigationDirection;
+        "onClickNextOrPrevSlide"?: (event: NavigationComponentCustomEvent<NavigationDirection>) => void;
+        "text"?: string;
+    }
     interface IntrinsicElements {
         "carousel-component": CarouselComponent;
         "image-component": ImageComponent;
         "indicator-component": IndicatorComponent;
+        "navigation-component": NavigationComponent;
     }
 }
 export { LocalJSX as JSX };
@@ -78,6 +100,7 @@ declare module "@stencil/core" {
             "carousel-component": LocalJSX.CarouselComponent & JSXBase.HTMLAttributes<HTMLCarouselComponentElement>;
             "image-component": LocalJSX.ImageComponent & JSXBase.HTMLAttributes<HTMLImageComponentElement>;
             "indicator-component": LocalJSX.IndicatorComponent & JSXBase.HTMLAttributes<HTMLIndicatorComponentElement>;
+            "navigation-component": LocalJSX.NavigationComponent & JSXBase.HTMLAttributes<HTMLNavigationComponentElement>;
         }
     }
 }
