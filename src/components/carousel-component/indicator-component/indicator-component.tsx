@@ -10,7 +10,7 @@ export class CarouselComponent {
   @Prop() slideIndex: number;
 
   @Event({
-    eventName: 'onChangeSlide',
+    eventName: 'changeSlide',
   })
   onClickEvent: EventEmitter<number>;
 

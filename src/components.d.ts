@@ -62,7 +62,7 @@ declare namespace LocalJSX {
     }
     interface IndicatorComponent {
         "isActive"?: boolean;
-        "onOnChangeSlide"?: (event: IndicatorComponentCustomEvent<number>) => void;
+        "onChangeSlide"?: (event: IndicatorComponentCustomEvent<number>) => void;
         "slideIndex"?: number;
     }
     interface IntrinsicElements {

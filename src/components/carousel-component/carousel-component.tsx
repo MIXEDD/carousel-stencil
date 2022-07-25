@@ -51,7 +51,7 @@ export class CarouselComponent {
     this.enableSlideshow();
   }
 
-  @Listen('onChangeSlide')
+  @Listen('changeSlide')
   changeSlide(event: CustomEvent<number>) {
     clearInterval(this.intervalRef);
     this.intervalEnabled = false;
