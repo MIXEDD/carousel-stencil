@@ -27,7 +27,11 @@ export class NavigationComponent {
 
   render() {
     return (
-      <button class={this.navigationDirection} onClick={() => this.onClick.call(this)}>
+      <button
+        class={this.navigationDirection}
+        onClick={() => this.onClick.call(this)}
+        aria-label={this.navigationDirection === NavigationDirection.Left ? 'navigation to previous slide' : 'navigation to next slide'}
+      >
         {this.text}
       </button>
     );

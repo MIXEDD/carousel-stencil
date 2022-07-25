@@ -93,11 +93,11 @@ export class CarouselComponent {
 
   render() {
     return (
-      <section onMouseLeave={() => this.restartCarouselIteration.call(this)}>
+      <section onMouseLeave={() => this.restartCarouselIteration.call(this)} aria-label="image carousel">
         {this.imagesConfig.map(image => (
           <image-component {...image} />
         ))}
-        <div class="indicators">
+        <div class="indicators" aria-label="slide indicators">
           {this.imagesConfig.map((image, index) => (
             <indicator-component isActive={image.isActive} slideIndex={index} />
           ))}
