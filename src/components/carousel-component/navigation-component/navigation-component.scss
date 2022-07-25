@@ -1,0 +1,22 @@
+button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-size: 36px;
+  position: absolute;
+  top: 0;
+  width: 5%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.left {
+    left: 0;
+  }
+
+  &.right {
+    right: 0;
+  }
+}
+
